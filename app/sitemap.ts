@@ -1,0 +1,3 @@
+import type { MetadataRoute } from "next"
+import { posts } from "@/lib/site-data"
+export default function sitemap():MetadataRoute.Sitemap{const base="https://wolfitpark.online";const routes=["","services","solutions","products","about","portfolio","pricing","testimonials","faq","contact","blog","careers","consultation","privacy","terms","cookies"];return [...routes.map(route=>({url:`${base}/${route}`,lastModified:new Date(),changeFrequency:route===""?"weekly" as const:"monthly" as const,priority:route===""?1:.8})),...posts.map(post=>({url:`${base}/blog/${post.slug}`,lastModified:new Date(post.date),changeFrequency:"monthly" as const,priority:.7}))]}

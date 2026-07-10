@@ -1,0 +1,7 @@
+import type { Metadata } from "next"
+import { notFound } from "next/navigation"
+import { legalContent } from "@/lib/site-data"
+type LegalKey=keyof typeof legalContent
+export function generateStaticParams(){return Object.keys(legalContent).map(legal=>({legal}))}
+export async function generateMetadata({params}:{params:Promise<{legal:string}>}):Promise<Metadata>{const{legal}=await params;const item=legalContent[legal as LegalKey];return item?{title:item.title,alternates:{canonical:`/${legal}`}}:{}}
+export default async function LegalPage({params}:{params:Promise<{legal:string}>}){const{legal}=await params;const item=legalContent[legal as LegalKey];if(!item)notFound();return <article><header className="border-b border-border bg-muted/30"><div className="container-site max-w-4xl py-20"><p className="text-xs font-semibold uppercase tracking-widest text-primary">Legal</p><h1 className="mt-4 text-4xl font-semibold sm:text-6xl">{item.title}</h1><p className="mt-5 text-muted-foreground">Last updated {item.updated}</p></div></header><div className="container-site max-w-3xl py-16"><div className="flex flex-col gap-10">{item.sections.map(([title,body])=><section key={title}><h2 className="text-2xl font-semibold">{title}</h2><p className="mt-4 leading-8 text-muted-foreground">{body}</p></section>)}<section><h2 className="text-2xl font-semibold">Contact</h2><p className="mt-4 leading-8 text-muted-foreground">Questions may be sent to support@wolfitpark.online or Wolfitpark, 30 N Gould St, Sheridan, WY 82801.</p></section></div></div></article>}

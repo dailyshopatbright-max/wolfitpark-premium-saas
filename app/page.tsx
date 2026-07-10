@@ -1,23 +1,18 @@
-export default function Page() {
-  return (
-    <main className="relative flex min-h-screen items-center justify-center bg-[color:light-dark(#fff,#000)] text-[color:light-dark(#000,#fff)]">
-      <svg
-        aria-hidden="true"
-        className="size-20"
-        fill="none"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke="currentColor"
-        strokeWidth="0.5"
-      >
-        <path
-          d="M14.2 14.2H17V6.9375C17 4.76288 15.2371 3 13.0625 3H5.8V5.8M14.2 14.2V7.79063L7.79062 14.2H14.2ZM14.2 14.2V17H6.9375C4.76288 17 3 15.2371 3 13.0625V5.8H5.8M5.8 5.8V12.2313L12.2313 5.8H5.8Z"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <p className="absolute left-1/2 top-[calc(50%+56px)] -translate-x-1/2 whitespace-nowrap text-sm font-medium text-muted-foreground">
-        Your v0 generation will show here.
-      </p>
-    </main>
-  )
-}
+import Link from "next/link"
+import { ArrowRight, CheckCircle2, CircleDot, Quote, ShieldCheck, Star, Zap } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { DashboardPreview } from "@/components/dashboard-preview"
+import { CtaSection, Eyebrow, IconCard, SectionHeading } from "@/components/page-sections"
+import { processSteps, products, services, solutions, stats, testimonials } from "@/lib/site-data"
+
+export default function HomePage(){return <>
+  <section className="relative overflow-hidden"><div className="hero-grid absolute inset-0 opacity-60"/><div className="absolute inset-x-0 top-0 h-80 bg-primary/5 blur-3xl"/><div className="container-site relative grid min-h-[calc(100svh-4rem)] items-center gap-12 py-16 lg:grid-cols-[.9fr_1.1fr] lg:py-20"><div><Badge variant="outline" className="mb-6 rounded-full px-3 py-1.5 text-primary"><CircleDot/> Digital systems for ambitious teams</Badge><h1 className="text-balance text-5xl font-semibold tracking-[-.055em] sm:text-6xl lg:text-7xl">Build Smarter. <span className="text-primary">Scale Faster.</span></h1><p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">Wolfitpark develops modern software, AI-powered automation, cloud solutions, and business management platforms that streamline operations and accelerate growth.</p><div className="mt-8 flex flex-wrap gap-3"><Button size="lg" render={<Link href="/contact"/>}>Get started<ArrowRight data-icon="inline-end"/></Button><Button size="lg" variant="outline" render={<Link href="/consultation"/>}>Book consultation</Button></div><div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-muted-foreground"><span className="flex items-center gap-1.5"><CheckCircle2 className="size-4 text-primary"/>Senior product teams</span><span className="flex items-center gap-1.5"><ShieldCheck className="size-4 text-primary"/>Security by design</span><span className="flex items-center gap-1.5"><Zap className="size-4 text-primary"/>Fast, visible delivery</span></div></div><DashboardPreview/></div></section>
+  <section className="border-y border-border bg-card"><div className="container-site grid grid-cols-2 gap-px py-8 md:grid-cols-4">{stats.map(([value,label])=><div key={label} className="px-4 py-5 text-center"><p className="text-3xl font-semibold tracking-tight text-primary">{value}</p><p className="mt-1 text-xs text-muted-foreground">{label}</p></div>)}</div></section>
+  <section className="section-pad"><div className="container-site"><SectionHeading eyebrow="What we build" title="From business friction to a system that flows." description="Strategy, design, engineering, and automation come together in one accountable team."/><div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{services.slice(0,6).map(([title,description,icon])=><IconCard key={title} title={title} description={description} icon={icon} href="/services"/>)}</div><div className="mt-8"><Button variant="outline" render={<Link href="/services"/>}>Explore all services<ArrowRight data-icon="inline-end"/></Button></div></div></section>
+  <section className="section-pad border-y border-border bg-foreground text-background"><div className="container-site grid gap-14 lg:grid-cols-2 lg:items-center"><div><Eyebrow>Wolf operating system</Eyebrow><h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">One connected view of the work that drives growth.</h2><p className="mt-5 max-w-xl text-lg leading-relaxed text-background/65">Wolf products bring customers, people, inventory, operations, and intelligence into a modular platform your teams can actually use.</p><div className="mt-8"><Button variant="secondary" render={<Link href="/products"/>}>Explore the product suite<ArrowRight data-icon="inline-end"/></Button></div></div><div className="grid gap-3 sm:grid-cols-2">{products.slice(0,4).map(product=><Link href="/products" key={product.name} className="rounded-2xl border border-background/15 bg-background/5 p-5 transition-colors hover:bg-background/10"><div className="flex items-center justify-between"><product.icon className="size-5 text-primary"/><span className="text-xl font-semibold text-primary">{product.metric}</span></div><h3 className="mt-7 text-base font-semibold text-background">{product.name}</h3><p className="mt-1 text-xs text-background/50">{product.metricLabel}</p></Link>)}</div></div></section>
+  <section className="section-pad"><div className="container-site"><SectionHeading align="center" eyebrow="Built for your reality" title="Industry context without industry baggage." description="We translate proven patterns into systems designed around how your organization actually works."/><div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">{solutions.slice(0,5).map(([title,description,icon])=><IconCard key={title} title={title} description={description} icon={icon} href="/solutions" className="lg:p-5"/>)}</div></div></section>
+  <section className="section-pad bg-muted/40"><div className="container-site"><SectionHeading eyebrow="How we deliver" title="Momentum without mystery." description="A focused process keeps decisions visible, risk controlled, and value moving into users' hands."/><div className="mt-12 grid gap-4 md:grid-cols-4">{processSteps.map(([number,title,description])=><div key={number} className="border-t-2 border-primary pt-5"><span className="text-xs font-semibold text-primary">{number}</span><h3 className="mt-4 text-xl font-semibold">{title}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p></div>)}</div></div></section>
+  <section className="section-pad"><div className="container-site"><SectionHeading align="center" eyebrow="Client perspective" title="Transformation people can feel."/><div className="mt-12 grid gap-5 lg:grid-cols-3">{testimonials.map(item=><figure key={item.name} className="rounded-2xl border border-border bg-card p-7"><Quote className="size-7 text-primary"/><div className="mt-6 flex gap-1" aria-label={`${item.rating} out of 5 stars`}>{Array.from({length:item.rating}).map((_,i)=><Star key={i} className="size-4 fill-primary text-primary"/>)}</div><blockquote className="mt-5 text-base leading-relaxed">“{item.quote}”</blockquote><figcaption className="mt-7 border-t border-border pt-5"><p className="font-semibold">{item.name}</p><p className="mt-1 text-sm text-muted-foreground">{item.role}</p></figcaption></figure>)}</div><div className="mt-8 text-center"><Button variant="outline" render={<Link href="/testimonials"/>}>Read success stories</Button></div></div></section>
+  <CtaSection/>
+</>}
