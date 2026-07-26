@@ -5,5 +5,12 @@
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
     "enabled": true
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "wolfitpark-db",
+      "database_id": "297ebaff-8764-42ee-bcc7-c49cc6a446f3"
+    }
+  ]
 }
