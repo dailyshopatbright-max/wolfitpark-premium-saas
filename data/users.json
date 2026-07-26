@@ -1,0 +1,34 @@
+[
+  {
+    "id": "admin-001",
+    "email": "admin@wolfitpark.online",
+    "passwordHash": "$2a$10$dG4P6LPV.9q5qRq5bLq9eO5P9e5qRq5bLq9eO5P9e5qRq5bLq9e",
+    "role": "admin",
+    "name": "Wolfitpark Admin",
+    "createdAt": "2026-07-01T00:00:00.000Z"
+  },
+  {
+    "id": "1785013837207",
+    "email": "habassademola@gmail.com",
+    "passwordHash": "$2b$10$q4VLHYBBbYndbRk/Dbn2r.4R5eORBlBjMFRmPIaNumaBqYtR3Xz3K",
+    "name": "habass Najeeb",
+    "role": "user",
+    "createdAt": "2026-07-25T21:10:37.207Z"
+  },
+  {
+    "id": "1785024261545",
+    "email": "test@example.com",
+    "passwordHash": "$2b$10$2TJ7WcjHQZq9dArzB8bGxuuggpbOYL/mWhIAQZT.u346nRGBegMwu",
+    "name": "Test User",
+    "role": "user",
+    "createdAt": "2026-07-26T00:04:21.545Z"
+  },
+  {
+    "id": "1785025373924",
+    "email": "ein@test.com",
+    "passwordHash": "$2b$10$QTBhmNQD2oO2NJwGLkWTteJjPi82Ju8NEwEON1BY0ULezRWkjoE.S",
+    "name": "EIN User",
+    "role": "user",
+    "createdAt": "2026-07-26T00:22:53.924Z"
+  }
+]
