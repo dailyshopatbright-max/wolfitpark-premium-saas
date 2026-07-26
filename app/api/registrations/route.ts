@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
+import { getCloudflareContext } from "@opennextjs/cloudflare"
 import { getUserById, getRegistrations, getRegistrationsByUser, createRegistration } from "@/lib/auth-store"
 
 const JWT_SECRET = "wolfitpark-secret-key-2026"
@@ -26,6 +27,7 @@ function verifyToken(token: string): JwtPayload | null {
 
 export async function GET(request: NextRequest) {
   try {
+    const db = (await getCloudflareContext()).env.DB as D1Database
     const token = getTokenFromCookies(request)
     if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -37,11 +39,11 @@ export async function GET(request: NextRequest) {
     }
 
     if (payload.role === "admin") {
-      const registrations = getRegistrations()
+      const registrations = await getRegistrations(db)
       return NextResponse.json({ registrations })
     }
 
-    const registrations = getRegistrationsByUser(payload.userId)
+    const registrations = await getRegistrationsByUser(db, payload.userId)
     return NextResponse.json({ registrations })
   } catch {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
@@ -50,6 +52,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const db = (await getCloudflareContext()).env.DB as D1Database
     const token = getTokenFromCookies(request)
     if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -60,7 +63,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const user = getUserById(payload.userId)
+    const user = await getUserById(db, payload.userId)
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
@@ -87,6 +90,7 @@ export async function POST(request: NextRequest) {
       registeredAgent: string
       einNeeded: boolean
       boirNeeded: boolean
+      itinNeeded: boolean
       mailForwarding: boolean
       paymentMethod: string
       totalAmount: number
@@ -121,7 +125,7 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
     }
 
-    createRegistration(registration)
+    await createRegistration(db, registration)
 
     return NextResponse.json({ success: true, registration })
   } catch {

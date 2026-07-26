@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
+import { getCloudflareContext } from "@opennextjs/cloudflare"
 import { getUserById } from "@/lib/auth-store"
 
 const JWT_SECRET = "wolfitpark-secret-key-2026"
@@ -11,6 +12,7 @@ interface JwtPayload {
 
 export async function GET(request: NextRequest) {
   try {
+    const db = (await getCloudflareContext()).env.DB as D1Database
     const cookieHeader = request.headers.get("cookie")
     if (!cookieHeader) {
       return NextResponse.json({ user: null })
@@ -29,7 +31,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: null })
     }
 
-    const user = getUserById(decoded.userId)
+    const user = await getUserById(db, decoded.userId)
     if (!user) {
       return NextResponse.json({ user: null })
     }

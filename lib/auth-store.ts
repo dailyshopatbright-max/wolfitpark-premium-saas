@@ -1,34 +1,3 @@
-import fs from "fs"
-import path from "path"
-
-const DATA_DIR = path.join(process.cwd(), "data")
-
-let usersCache: User[] | null = null
-let registrationsCache: Registration[] | null = null
-let lastUsersRead = 0
-let lastRegistrationsRead = 0
-const CACHE_TTL = 2000
-
-function ensureDataDir() {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true })
-}
-
-function readJSON<T>(filename: string, fallback: T): T {
-  ensureDataDir()
-  const fp = path.join(DATA_DIR, filename)
-  if (!fs.existsSync(fp)) return fallback
-  try {
-    return JSON.parse(fs.readFileSync(fp, "utf-8")) as T
-  } catch {
-    return fallback
-  }
-}
-
-function writeJSON<T>(filename: string, data: T) {
-  ensureDataDir()
-  fs.writeFileSync(path.join(DATA_DIR, filename), JSON.stringify(data, null, 2))
-}
-
 export type UserRole = "admin" | "user"
 
 export type User = {
@@ -64,64 +33,100 @@ export type Registration = {
   createdAt: string
 }
 
-export function getUsers(): User[] {
-  const now = Date.now()
-  if (usersCache && now - lastUsersRead < CACHE_TTL) return usersCache
-  usersCache = readJSON<User[]>("users.json", [])
-  lastUsersRead = now
-  return usersCache
+export function rowToUser(row: any): User {
+  return {
+    id: row.id,
+    email: row.email,
+    passwordHash: row.passwordHash,
+    name: row.name,
+    role: row.role as UserRole,
+    phone: row.phone || undefined,
+    company: row.company || undefined,
+    createdAt: row.createdAt,
+  }
 }
 
-export function getUserByEmail(email: string): User | undefined {
-  return getUsers().find((u) => u.email === email)
+export function rowToRegistration(row: any): Registration {
+  return {
+    id: row.id,
+    userId: row.userId,
+    userEmail: row.userEmail,
+    userName: row.userName,
+    companyName: row.companyName,
+    entityType: row.entityType,
+    filingState: row.filingState,
+    registeredAgent: row.registeredAgent,
+    einNeeded: !!row.einNeeded,
+    boirNeeded: !!row.boirNeeded,
+    itinNeeded: !!row.itinNeeded,
+    mailForwarding: !!row.mailForwarding,
+    paymentMethod: row.paymentMethod || "card",
+    totalAmount: row.totalAmount || 0,
+    phone: row.phone || "",
+    address: row.address || "",
+    usCitizen: !!row.usCitizen,
+    status: row.status as Registration["status"],
+    createdAt: row.createdAt,
+  }
 }
 
-export function getUserById(id: string): User | undefined {
-  return getUsers().find((u) => u.id === id)
+export async function getUsers(db: D1Database): Promise<User[]> {
+  const { results } = await db.prepare("SELECT * FROM users ORDER BY createdAt DESC").all()
+  return (results as any[]).map(rowToUser)
 }
 
-export function createUser(user: User): void {
-  const users = getUsers()
-  users.push(user)
-  writeJSON("users.json", users)
-  usersCache = users
-  lastUsersRead = Date.now()
+export async function getUserByEmail(db: D1Database, email: string): Promise<User | undefined> {
+  const row = await db.prepare("SELECT * FROM users WHERE email = ?").bind(email).first()
+  return row ? rowToUser(row) : undefined
 }
 
-export function getRegistrations(): Registration[] {
-  const now = Date.now()
-  if (registrationsCache && now - lastRegistrationsRead < CACHE_TTL) return registrationsCache
-  registrationsCache = readJSON<Registration[]>("registrations.json", [])
-  lastRegistrationsRead = now
-  return registrationsCache
+export async function getUserById(db: D1Database, id: string): Promise<User | undefined> {
+  const row = await db.prepare("SELECT * FROM users WHERE id = ?").bind(id).first()
+  return row ? rowToUser(row) : undefined
 }
 
-export function getRegistrationsByUser(userId: string): Registration[] {
-  return getRegistrations().filter((r) => r.userId === userId)
+export async function createUser(db: D1Database, user: User): Promise<void> {
+  await db.prepare(
+    "INSERT INTO users (id, email, passwordHash, name, role, phone, company, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+  ).bind(
+    user.id, user.email, user.passwordHash, user.name, user.role,
+    user.phone || "", user.company || "", user.createdAt
+  ).run()
 }
 
-export function getRegistrationById(id: string): Registration | undefined {
-  return getRegistrations().find((r) => r.id === id)
+export async function getRegistrations(db: D1Database): Promise<Registration[]> {
+  const { results } = await db.prepare("SELECT * FROM registrations ORDER BY createdAt DESC").all()
+  return (results as any[]).map(rowToRegistration)
 }
 
-export function createRegistration(reg: Registration): void {
-  const all = getRegistrations()
-  all.push(reg)
-  writeJSON("registrations.json", all)
-  registrationsCache = all
-  lastRegistrationsRead = Date.now()
+export async function getRegistrationsByUser(db: D1Database, userId: string): Promise<Registration[]> {
+  const { results } = await db.prepare("SELECT * FROM registrations WHERE userId = ? ORDER BY createdAt DESC").bind(userId).all()
+  return (results as any[]).map(rowToRegistration)
 }
 
-export function updateRegistrationStatus(
+export async function getRegistrationById(db: D1Database, id: string): Promise<Registration | undefined> {
+  const row = await db.prepare("SELECT * FROM registrations WHERE id = ?").bind(id).first()
+  return row ? rowToRegistration(row) : undefined
+}
+
+export async function createRegistration(db: D1Database, reg: Registration): Promise<void> {
+  await db.prepare(
+    `INSERT INTO registrations (id, userId, userEmail, userName, companyName, entityType, filingState,
+     registeredAgent, einNeeded, boirNeeded, itinNeeded, mailForwarding, paymentMethod, totalAmount,
+     phone, address, usCitizen, status, createdAt)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    reg.id, reg.userId, reg.userEmail, reg.userName, reg.companyName, reg.entityType, reg.filingState,
+    reg.registeredAgent, reg.einNeeded ? 1 : 0, reg.boirNeeded ? 1 : 0, reg.itinNeeded ? 1 : 0,
+    reg.mailForwarding ? 1 : 0, reg.paymentMethod, reg.totalAmount,
+    reg.phone, reg.address, reg.usCitizen ? 1 : 0, reg.status, reg.createdAt
+  ).run()
+}
+
+export async function updateRegistrationStatus(
+  db: D1Database,
   id: string,
   status: Registration["status"]
-): void {
-  const all = getRegistrations()
-  const idx = all.findIndex((r) => r.id === id)
-  if (idx !== -1) {
-    all[idx].status = status
-    writeJSON("registrations.json", all)
-    registrationsCache = all
-    lastRegistrationsRead = Date.now()
-  }
+): Promise<void> {
+  await db.prepare("UPDATE registrations SET status = ? WHERE id = ?").bind(status, id).run()
 }

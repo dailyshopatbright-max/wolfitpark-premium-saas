@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import { getCloudflareContext } from "@opennextjs/cloudflare"
 import { getUserByEmail } from "@/lib/auth-store"
 
 const JWT_SECRET = "wolfitpark-secret-key-2026"
 
 export async function POST(request: NextRequest) {
   try {
+    const db = (await getCloudflareContext()).env.DB as D1Database
     const body = await request.json()
     const { email, password } = body as { email?: string; password?: string }
 
@@ -14,7 +16,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Email and password are required" }, { status: 400 })
     }
 
-    const user = getUserByEmail(email.toLowerCase().trim())
+    const user = await getUserByEmail(db, email.toLowerCase().trim())
     if (!user) {
       return NextResponse.json({ error: "Invalid email or password" }, { status: 401 })
     }

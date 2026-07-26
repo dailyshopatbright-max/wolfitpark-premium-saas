@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import jwt from "jsonwebtoken"
+import { getCloudflareContext } from "@opennextjs/cloudflare"
 import { updateRegistrationStatus } from "@/lib/auth-store"
 
 const JWT_SECRET = "wolfitpark-secret-key-2026"
@@ -23,6 +24,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const db = (await getCloudflareContext()).env.DB as D1Database
     const token = getTokenFromCookies(request)
     if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -48,7 +50,7 @@ export async function PATCH(
     }
 
     const { id } = await params
-    updateRegistrationStatus(id, status)
+    await updateRegistrationStatus(db, id, status)
 
     return NextResponse.json({ success: true })
   } catch {
