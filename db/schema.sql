@@ -30,3 +30,10 @@ CREATE TABLE IF NOT EXISTS registrations (
   status TEXT DEFAULT 'pending',
   createdAt TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS submissions (
+  id TEXT PRIMARY KEY,
+  type TEXT NOT NULL,
+  data TEXT NOT NULL,
+  createdAt TEXT NOT NULL
+);
