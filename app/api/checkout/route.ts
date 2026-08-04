@@ -1,7 +1,41 @@
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
+import jwt from "jsonwebtoken"
 import { getCloudflareContext } from "@opennextjs/cloudflare"
-import { createCheckout } from "@/lib/payments-store"
+import { createCheckout, listCheckouts } from "@/lib/payments-store"
+
+const JWT_SECRET = "wolfitpark-secret-key-2026"
+
+function getTokenFromCookies(request: NextRequest): string | null {
+  const cookieHeader = request.headers.get("cookie")
+  if (!cookieHeader) return null
+  const match = cookieHeader.match(/(?:^|;\s*)token=([^;]+)/)
+  return match ? match[1] : null
+}
+
+function verifyAdmin(request: NextRequest): boolean {
+  const token = getTokenFromCookies(request)
+  if (!token) return false
+  try {
+    const payload = jwt.verify(token, JWT_SECRET) as { role?: string }
+    return payload.role === "admin"
+  } catch {
+    return false
+  }
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    if (!verifyAdmin(request)) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+    const db = (await getCloudflareContext()).env.DB as D1Database
+    const checkouts = await listCheckouts(db)
+    return NextResponse.json({ checkouts })
+  } catch {
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+  }
+}
 
 const schema = z.object({
   method: z.enum(["ach", "card"]),

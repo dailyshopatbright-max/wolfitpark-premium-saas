@@ -13,27 +13,16 @@ import { Logo } from "@/components/logo"
 import { todayStamp, formatMoney, type PaymentMethod, type ACHOutput, type CardOutput } from "@/components/checkout/validation"
 import { cn } from "@/lib/utils"
 
-const DEMO_ORDER: CheckoutOrder = {
-  project: "Software Development Retainer",
-  invoiceNumber: "INV-2026-0184",
-  description: "Phase 2 — AI automation platform build, 3-month engagement. Includes architecture, development, and deployment.",
-  subtotal: 12500,
-  tax: 0,
-  discount: 500,
-  processingFee: (method) => (method === "card" ? Math.round((12500 - 500) * 0.029 + 0.3 * 100) / 100 : 0),
-  supportEmail: "support@wolfitpark.online",
-}
-
 function orderTotal(order: CheckoutOrder, method: PaymentMethod) {
   return order.subtotal - order.discount + order.tax + order.processingFee(method)
 }
 
-export function Checkout() {
+export function Checkout({ order }: { order: CheckoutOrder }) {
   const [method, setMethod] = useState<PaymentMethod>("ach")
   const [phase, setPhase] = useState<"form" | "processing" | "success" | "error">("form")
   const [receipt, setReceipt] = useState<ReceiptData | null>(null)
 
-  const amount = orderTotal(DEMO_ORDER, method)
+  const amount = orderTotal(order, method)
 
   async function handlePay(data: ACHOutput | CardOutput) {
     setPhase("processing")
@@ -45,7 +34,7 @@ export function Checkout() {
         body: JSON.stringify({
           method,
           amount,
-          invoiceNumber: DEMO_ORDER.invoiceNumber,
+          invoiceNumber: order.invoiceNumber,
           email,
           customerName: "customerName" in data ? data.customerName : data.cardholderName,
         }),
@@ -66,9 +55,9 @@ export function Checkout() {
         date: todayStamp(),
         amount,
         receiptNumber: body.receiptNumber,
-        invoiceNumber: DEMO_ORDER.invoiceNumber,
+        invoiceNumber: order.invoiceNumber,
         email,
-        order: DEMO_ORDER,
+        order: order,
       })
       setPhase("success")
     } catch {
@@ -141,7 +130,7 @@ export function Checkout() {
                 transition={{ delay: 0.1 }}
                 className="rounded-3xl border border-border bg-card/70 p-6 shadow-xl backdrop-blur-sm"
               >
-                <OrderSummary order={DEMO_ORDER} method={method} />
+                <OrderSummary order={order} method={method} />
               </motion.section>
 
               <motion.section
@@ -184,9 +173,9 @@ export function Checkout() {
                       aria-labelledby={`tab-${method}`}
                     >
                       {method === "ach" ? (
-                        <ACHForm amount={amount} invoiceNumber={DEMO_ORDER.invoiceNumber} processing={phase === "processing"} onPay={handlePay} />
+                        <ACHForm amount={amount} invoiceNumber={order.invoiceNumber} processing={phase === "processing"} onPay={handlePay} />
                       ) : (
-                        <CardForm amount={amount} invoiceNumber={DEMO_ORDER.invoiceNumber} processing={phase === "processing"} onPay={handlePay} />
+                        <CardForm amount={amount} invoiceNumber={order.invoiceNumber} processing={phase === "processing"} onPay={handlePay} />
                       )}
                     </motion.div>
                   </AnimatePresence>

@@ -27,3 +27,10 @@ export async function createCheckout(db: D1Database, record: CheckoutRecord) {
     )
     .run()
 }
+
+export async function listCheckouts(db: D1Database): Promise<CheckoutRecord[]> {
+  const { results } = await db
+    .prepare("SELECT * FROM checkouts ORDER BY created_at DESC")
+    .all<CheckoutRecord>()
+  return results as CheckoutRecord[]
+}

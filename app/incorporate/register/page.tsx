@@ -102,8 +102,22 @@ export default function IncorporateRegisterPage() {
     })
     const data = await res.json()
     setSubmitting(false)
-    if (data.success) setDone(true)
-    else alert(data.error || "Submission failed.")
+    if (!data.success) {
+      alert(data.error || "Submission failed.")
+      return
+    }
+    if (paymentMethod === "card" || paymentMethod === "ach") {
+      const invoice = data.registration?.id || `REG-${Date.now()}`
+      const qs = new URLSearchParams({
+        amount: String(totalAmount),
+        invoice,
+        project: `${form.companyName} — Company Formation`,
+        description: `Incorporation of ${form.companyName} (${form.filingState}) including services and add-ons selected at registration.`,
+      })
+      router.push(`/checkout?${qs.toString()}`)
+      return
+    }
+    setDone(true)
   }
 
   const steps = ["Business Info", "Entity & State", "Services", "Review & Payment"]
@@ -127,9 +141,8 @@ export default function IncorporateRegisterPage() {
             Check your dashboard for status updates.
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
-            {paymentMethod === "card" && "You will be redirected to our secure payment page to complete your card payment."}
             {paymentMethod === "crypto" && "Please send the crypto payment to the wallet address provided in your confirmation email."}
-            {paymentMethod === "ach" && "ACH payment instructions have been sent to your email."}
+            {paymentMethod !== "crypto" && "You will be redirected to our secure payment page to complete your payment via card or ACH eCheck."}
           </p>
           <Button className="mt-6" onClick={() => router.push("/dashboard")}>Go to Dashboard <ArrowRight data-icon="inline-end" /></Button>
         </div>
