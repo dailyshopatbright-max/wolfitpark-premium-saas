@@ -9,7 +9,7 @@ export type CheckoutOrder = {
   subtotal: number
   tax: number
   discount: number
-  processingFee: (method: "ach" | "card") => number
+  processingFee: { ach: number; card: number }
   supportEmail: string
   linesEmail?: string
 }
@@ -31,7 +31,7 @@ export function OrderSummary({
   method: "ach" | "card"
 }) {
   const discount = Math.min(order.discount, order.subtotal)
-  const fee = order.processingFee(method)
+  const fee = order.processingFee[method] ?? 0
   const total = order.subtotal - discount + order.tax + fee
 
   return (

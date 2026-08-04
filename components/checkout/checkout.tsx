@@ -14,7 +14,7 @@ import { todayStamp, formatMoney, type PaymentMethod, type ACHOutput, type CardO
 import { cn } from "@/lib/utils"
 
 function orderTotal(order: CheckoutOrder, method: PaymentMethod) {
-  return order.subtotal - order.discount + order.tax + order.processingFee(method)
+  return order.subtotal - order.discount + order.tax + (order.processingFee[method] ?? 0)
 }
 
 export function Checkout({ order }: { order: CheckoutOrder }) {

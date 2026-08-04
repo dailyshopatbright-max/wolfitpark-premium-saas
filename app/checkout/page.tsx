@@ -17,7 +17,7 @@ const DEMO_ORDER: CheckoutOrder = {
   subtotal: 12500,
   tax: 0,
   discount: 500,
-  processingFee: (method) => (method === "card" ? Math.round((12500 - 500) * 0.029 + 0.3 * 100) / 100 : 0),
+  processingFee: { card: Math.round((12500 - 500) * 0.029 + 0.3 * 100) / 100, ach: 0 },
   supportEmail: "support@wolfitpark.online",
 }
 
@@ -35,7 +35,7 @@ function buildOrder(params: URLSearchParams): CheckoutOrder {
       subtotal: amount,
       tax: 0,
       discount: 0,
-      processingFee: () => 0,
+      processingFee: { ach: 0, card: 0 },
       supportEmail: "support@wolfitpark.online",
     }
   }
