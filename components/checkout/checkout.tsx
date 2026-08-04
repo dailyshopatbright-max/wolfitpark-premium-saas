@@ -8,9 +8,9 @@ import { OrderSummary, type CheckoutOrder } from "@/components/checkout/order-su
 import { SecurityBadges, TrustSection, SecurityFooterNote } from "@/components/checkout/security-badges"
 import { ACHForm } from "@/components/checkout/ach-form"
 import { CardForm } from "@/components/checkout/card-form"
-import { LoadingOverlay, SuccessView, ErrorView, type ReceiptData } from "@/components/checkout/status-views"
+import { LoadingOverlay, SuccessView, UnavailableView, type ReceiptData } from "@/components/checkout/status-views"
 import { Logo } from "@/components/logo"
-import { todayStamp, formatMoney, type PaymentMethod, type ACHOutput, type CardOutput } from "@/components/checkout/validation"
+import { formatMoney, type PaymentMethod, type ACHOutput, type CardOutput } from "@/components/checkout/validation"
 import { cn } from "@/lib/utils"
 
 function orderTotal(order: CheckoutOrder, method: PaymentMethod) {
@@ -19,50 +19,14 @@ function orderTotal(order: CheckoutOrder, method: PaymentMethod) {
 
 export function Checkout({ order }: { order: CheckoutOrder }) {
   const [method, setMethod] = useState<PaymentMethod>("ach")
-  const [phase, setPhase] = useState<"form" | "processing" | "success" | "error">("form")
+  const [phase, setPhase] = useState<"form" | "processing" | "success" | "unavailable">("form")
   const [receipt, setReceipt] = useState<ReceiptData | null>(null)
 
   const amount = orderTotal(order, method)
 
-  async function handlePay(data: ACHOutput | CardOutput) {
+  function handlePay(_data: ACHOutput | CardOutput) {
     setPhase("processing")
-    const email = "email" in data ? data.email : ""
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          method,
-          amount,
-          invoiceNumber: order.invoiceNumber,
-          email,
-          customerName: "customerName" in data ? data.customerName : data.cardholderName,
-        }),
-      })
-      const body = (await res.json()) as {
-        success: boolean
-        transactionId?: string
-        receiptNumber?: string
-      }
-      if (!res.ok || !body.success || !body.transactionId || !body.receiptNumber) {
-        setPhase("error")
-        return
-      }
-      const now = new Date()
-      setReceipt({
-        transactionId: body.transactionId,
-        method,
-        date: todayStamp(),
-        amount,
-        receiptNumber: body.receiptNumber,
-        invoiceNumber: order.invoiceNumber,
-        email,
-        order: order,
-      })
-      setPhase("success")
-    } catch {
-      setPhase("error")
-    }
+    window.setTimeout(() => setPhase("unavailable"), 1600)
   }
 
   function downloadReceipt() {
@@ -105,8 +69,11 @@ export function Checkout({ order }: { order: CheckoutOrder }) {
 
       {phase === "success" && receipt ? (
         <SuccessView receipt={receipt} onDownload={downloadReceipt} onDone={() => setPhase("form")} />
-      ) : phase === "error" ? (
-        <ErrorView onRetry={() => setPhase("form")} onSupport={() => (window.location.href = "mailto:support@wolfitpark.online")} />
+      ) : phase === "unavailable" ? (
+        <UnavailableView
+          onRetry={() => setPhase("form")}
+          onSupport={() => (window.location.href = "mailto:support@wolfitpark.online")}
+        />
       ) : (
         <motion.div key="checkout" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
           <header className="mb-8 text-center">

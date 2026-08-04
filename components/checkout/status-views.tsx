@@ -10,6 +10,7 @@ import {
   XCircle,
   Landmark,
   CreditCard,
+  Construction,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { formatMoney, type PaymentMethod } from "@/components/checkout/validation"
@@ -187,6 +188,41 @@ export function ErrorView({
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
         We couldn't complete your payment. Please verify your payment information or try another
         payment method.
+      </p>
+      <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <Button onClick={onRetry} size="lg">
+          <RotateCcw data-icon="inline-start" />
+          Try again
+        </Button>
+        <Button onClick={onSupport} variant="outline" size="lg">
+          Contact support
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+export function UnavailableView({
+  onRetry,
+  onSupport,
+}: {
+  onRetry: () => void
+  onSupport: () => void
+}) {
+  return (
+    <div className="mx-auto w-full max-w-md py-16 text-center">
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 16 }}
+        className="mx-auto grid size-20 place-items-center rounded-full bg-primary/10 text-primary"
+      >
+        <Construction className="size-10" />
+      </motion.div>
+      <h1 className="mt-5 text-2xl font-semibold">Payment processing unavailable</h1>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+        We&apos;re working on it. Payment processing is temporarily unavailable — please try again
+        later. No payment has been charged.
       </p>
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Button onClick={onRetry} size="lg">
