@@ -37,3 +37,14 @@ CREATE TABLE IF NOT EXISTS submissions (
   data TEXT NOT NULL,
   createdAt TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS checkouts (
+  id TEXT PRIMARY KEY,
+  invoice_number TEXT NOT NULL,
+  method TEXT NOT NULL,
+  amount REAL NOT NULL,
+  email TEXT NOT NULL,
+  customer_name TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'succeeded',
+  created_at TEXT NOT NULL
+);
