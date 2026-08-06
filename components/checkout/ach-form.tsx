@@ -164,15 +164,13 @@ export function ACHForm({
 
         <AuthorizationSection checked={authChecked} onChange={setAuthChecked} />
 
-        <div className="sticky bottom-4 z-20">
-          <PaymentButton
-            type="submit"
-            method="ach"
-            processing={processing}
-            disabled={!isValid || !authChecked}
-            hint={`${formatMoney(amount)} will be debited from your bank account`}
-          />
-        </div>
+        <PaymentButton
+          type="submit"
+          method="ach"
+          processing={processing}
+          disabled={!isValid || !authChecked}
+          hint={`${formatMoney(amount)} will be debited from your bank account`}
+        />
       </FieldGroup>
     </form>
   )
