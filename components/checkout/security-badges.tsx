@@ -1,9 +1,9 @@
 import { ShieldCheck, LockKeyhole, BadgeCheck, RefreshCw, Headphones, Banknote } from "lucide-react"
 
 const methodBadges = [
-  { label: "SSL Secure" },
-  { label: "PCI DSS Level 1" },
-  { label: "Encrypted" },
+  { label: "SSL Secure Checkout" },
+  { label: "PCI DSS Compliant" },
+  { label: "256-bit SSL Encryption" },
   { label: "ACH Network" },
   { label: "Nacha Compliant" },
 ]
@@ -62,9 +62,15 @@ export function TrustSection() {
 
 export function SecurityFooterNote() {
   return (
-    <p className="flex items-center gap-2 text-xs text-muted-foreground">
-      <LockKeyhole className="size-3.5 shrink-0" />
-      Protected by PCI DSS Level 1 infrastructure. No banking credentials are ever stored by Wolfitpark LLC.
-    </p>
+    <div className="space-y-2">
+      <p className="flex items-center gap-2 text-xs text-muted-foreground">
+        <ShieldCheck className="size-3.5 shrink-0 text-primary" />
+        Trusted Payment Processing · Secure Transactions
+      </p>
+      <p className="flex items-center gap-2 text-xs text-muted-foreground">
+        <LockKeyhole className="size-3.5 shrink-0" />
+        Protected by PCI DSS Level 1 infrastructure. No banking credentials are ever stored by Wolfitpark LLC.
+      </p>
+    </div>
   )
 }

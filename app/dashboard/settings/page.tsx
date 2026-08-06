@@ -276,8 +276,8 @@ function SecuritySection({ showPassword, onTogglePassword }: { showPassword: boo
         </CardHeader>
         <CardContent className="space-y-4">
           {[
-            { device: "MacBook Pro", location: "Sheridan, WY", time: "Active now", icon: Monitor, current: true },
-            { device: "iPhone 15", location: "Sheridan, WY", time: "2 hours ago", icon: Smartphone },
+            { device: "MacBook Pro", location: "Bryant, AR", time: "Active now", icon: Monitor, current: true },
+            { device: "iPhone 15", location: "Bryant, AR", time: "2 hours ago", icon: Smartphone },
           ].map((session) => {
             const Icon = session.icon
             return (

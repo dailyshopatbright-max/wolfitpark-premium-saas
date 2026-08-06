@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { FadeIn, FadeInStagger } from "@/components/animation/fade-in"
 import { SectionWrapper } from "@/components/layout/section-wrapper"
+import { AcceptedPaymentBadge } from "@/components/card-logos"
 
 const tiers: {
   name: string
@@ -95,6 +96,12 @@ export function PricingSection() {
             </article>
           ))}
         </FadeInStagger>
+        <FadeIn className="mt-10">
+          <AcceptedPaymentBadge
+            label="Secure Transactions · 256-bit SSL · PCI DSS Compliant"
+            className="rounded-2xl border border-border bg-card/60 py-5"
+          />
+        </FadeIn>
       </div>
     </SectionWrapper>
   )

@@ -10,6 +10,7 @@ import { ACHForm } from "@/components/checkout/ach-form"
 import { CardForm } from "@/components/checkout/card-form"
 import { LoadingOverlay, SuccessView, UnavailableView, type ReceiptData } from "@/components/checkout/status-views"
 import { Logo } from "@/components/logo"
+import { AcceptedPaymentBadge } from "@/components/card-logos"
 import { formatMoney, type PaymentMethod, type ACHOutput, type CardOutput } from "@/components/checkout/validation"
 import { cn } from "@/lib/utils"
 
@@ -126,6 +127,10 @@ export function Checkout({ order }: { order: CheckoutOrder }) {
             >
               <div className="rounded-3xl border border-border bg-card/70 p-6 shadow-xl backdrop-blur-sm sm:p-8">
                 <PaymentMethodSwitcher value={method} onChange={setMethod} />
+
+                <div className="mt-5 rounded-2xl border border-border bg-muted/30 p-4">
+                  <AcceptedPaymentBadge label="Accepted Payment Methods" size="sm" />
+                </div>
 
                 <div className="mt-6">
                   <AnimatePresence mode="wait">

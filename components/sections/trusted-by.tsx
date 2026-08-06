@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { FadeIn } from "@/components/animation/fade-in"
+import { CardLogos } from "@/components/card-logos"
 
 const partners = [
   "Paykings", "TechNova", "Meridian Group", "Atlas Health", "Northstar Labs",
@@ -34,6 +35,18 @@ export function TrustedBy() {
             ))}
           </motion.div>
         </div>
+
+        <FadeIn className="mt-10">
+          <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[.22em] text-muted-foreground">
+            Secure Payments Powered By
+          </p>
+          <div className="flex flex-col items-center gap-3">
+            <CardLogos size="md" />
+            <p className="text-center text-xs text-muted-foreground">
+              SSL Secure Checkout &middot; PCI DSS Level 1 &middot; 256-bit SSL Encryption &middot; Trusted Payment Processing
+            </p>
+          </div>
+        </FadeIn>
       </div>
     </section>
   )

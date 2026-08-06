@@ -125,7 +125,7 @@ export const legalContent = {
       ["12. Children's Privacy", "Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If we become aware of such collection, we will delete the information promptly."],
       ["13. Third-Party Links", "Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of these external sites. We encourage you to review their privacy policies before providing any personal information."],
       ["14. Changes to This Policy", "We may update this Privacy Policy from time to time. Material changes will be communicated via email or a prominent notice on our website. Your continued use of our services after changes constitutes acceptance of the updated policy."],
-      ["15. Contact Us", "If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us at: Wolfitpark LLC, 30 N Gould St, Sheridan, WY 82801, USA. Email: privacy@wolfitpark.online. Phone: +1 (307) 555-0199."],
+      ["15. Contact Us", "If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us at: Wolfitpark LLC, 701 Amy Cir, Bryant, AR 72022, USA. Email: privacy@wolfitpark.online. Phone: +1 (307) 555-0199."],
     ]
   },
   terms: {
@@ -146,11 +146,11 @@ export const legalContent = {
       ["12. Disclaimer of Warranties", "Our services are provided 'as is' and 'as available' without warranties of any kind, either express or implied. We do not warrant that services will be uninterrupted, error-free, or meet your specific requirements. State filing services are dependent on government processing and we cannot guarantee specific outcomes or timelines."],
       ["13. Indemnification", "You agree to indemnify and hold Wolfitpark, its officers, employees, and agents harmless from any claims, damages, losses, liabilities, and expenses (including reasonable legal fees) arising from: (a) Your use of our services; (b) Your violation of these Terms; (c) Your violation of applicable laws; (d) Information you provide that is inaccurate or fraudulent."],
       ["14. Termination", "Either party may terminate agreements as specified in your service contract. We reserve the right to suspend or terminate access to our services immediately if: (a) You breach these Terms; (b) You engage in fraudulent or illegal activity; (c) Required by law or regulatory authority; (d) You fail to pay fees when due. Upon termination, you remain liable for all fees incurred."],
-      ["15. Governing Law and Dispute Resolution", "These Terms are governed by the laws of the State of Wyoming, United States, without regard to conflict of law principles. Any disputes shall first be attempted to be resolved through good-faith negotiation. If unresolved, disputes shall be settled by binding arbitration in Sheridan County, Wyoming, administered by the American Arbitration Association. The prevailing party shall be entitled to reasonable attorney fees."],
+      ["15. Governing Law and Dispute Resolution", "These Terms are governed by the laws of the State of Arkansas, United States, without regard to conflict of law principles. Any disputes shall first be attempted to be resolved through good-faith negotiation. If unresolved, disputes shall be settled by binding arbitration in Saline County, Arkansas, administered by the American Arbitration Association. The prevailing party shall be entitled to reasonable attorney fees."],
       ["16. Entire Agreement", "These Terms, together with our Privacy Policy, Refund Policy, and any service agreements, constitute the entire agreement between you and Wolfitpark regarding your use of our services. They supersede all prior or contemporaneous agreements, communications, and proposals."],
       ["17. Severability", "If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect."],
       ["18. Changes to Terms", "We may modify these Terms at any time. Changes are effective immediately upon posting. We will notify you of material changes via email or website notice. Continued use of services after changes constitutes acceptance."],
-      ["19. Contact", "For questions about these Terms, contact: Wolfitpark LLC, 30 N Gould St, Sheridan, WY 82801, USA. Email: legal@wolfitpark.online. Phone: +1 (307) 555-0199."],
+      ["19. Contact", "For questions about these Terms, contact: Wolfitpark LLC, 701 Amy Cir, Bryant, AR 72022, USA. Email: legal@wolfitpark.online. Phone: +1 (307) 555-0199."],
     ]
   },
   cookies: {
@@ -166,7 +166,7 @@ export const legalContent = {
       ["7. Data Collected via Cookies", "Cookies may collect: IP address, browser type and version, operating system, referring URL, pages visited, time spent on pages, and click patterns. This data is aggregated and anonymized where possible."],
       ["8. Cookie Retention", "Session cookies expire when you close your browser. Persistent cookies remain on your device for up to 12 months or until manually deleted. You can delete persistent cookies through your browser settings at any time."],
       ["9. Updates to This Policy", "We may update this Cookie Policy. Changes will be posted here with an updated revision date. Material changes will be communicated via cookie consent banner or email."],
-      ["10. Contact", "For questions about our use of cookies, contact: Wolfitpark LLC, 30 N Gould St, Sheridan, WY 82801, USA. Email: privacy@wolfitpark.online."],
+      ["10. Contact", "For questions about our use of cookies, contact: Wolfitpark LLC, 701 Amy Cir, Bryant, AR 72022, USA. Email: privacy@wolfitpark.online."],
     ]
   },
   refund: {
@@ -184,8 +184,8 @@ export const legalContent = {
       ["9. Refund Processing", "Approved refunds are processed within 5-10 business days. Refunds are credited to your original payment method: (a) Credit/debit card refunds — 5-10 business days to appear on your statement; (b) Cryptocurrency refunds — processed within 24 hours, subject to blockchain network confirmations; (c) ACH/wire refunds — 5-7 business days. Cryptocurrency refunds are denominated in the original cryptocurrency at the exchange rate at the time of refund processing."],
       ["10. Chargeback Policy", "If you initiate a chargeback with your financial institution before contacting us, your account may be immediately suspended. We will provide transaction records to your financial institution to dispute the chargeback. Wrongful chargebacks may result in a $25 administrative fee."],
       ["11. Exceptions", "Exceptions to this Refund Policy may be made at Wolfitpark's sole discretion in extraordinary circumstances. All exceptions must be documented in writing and approved by a Wolfitpark manager."],
-      ["12. Governing Law", "This Refund Policy is governed by the laws of the State of Wyoming, United States. Any disputes regarding refunds shall be resolved through the dispute resolution process outlined in our Terms & Conditions."],
-      ["13. Contact", "For refund requests or questions, contact: Wolfitpark LLC, 30 N Gould St, Sheridan, WY 82801, USA. Email: billing@wolfitpark.online. Phone: +1 (307) 555-0199."],
+      ["12. Governing Law", "This Refund Policy is governed by the laws of the State of Arkansas, United States. Any disputes regarding refunds shall be resolved through the dispute resolution process outlined in our Terms & Conditions."],
+      ["13. Contact", "For refund requests or questions, contact: Wolfitpark LLC, 701 Amy Cir, Bryant, AR 72022, USA. Email: billing@wolfitpark.online. Phone: +1 (307) 555-0199."],
     ]
   },
   shipping: {
@@ -193,7 +193,7 @@ export const legalContent = {
     updated: "July 25, 2026",
     sections: [
       ["1. Digital Delivery", "Wolfitpark LLC primarily delivers services and documents electronically. Upon successful formation or filing, you will receive: (a) Digital copies of formation documents (Certificate of Formation/Incorporation, Operating Agreement, Bylaws) available for download from your client dashboard; (b) EIN confirmation letter (CP 575) from the IRS via email and dashboard; (c) BOI filing confirmation via email; (d) All communications, invoices, and receipts are delivered electronically. Digital documents are typically available within 1-2 business days after state approval."],
-      ["2. Physical Mail Forwarding", "If you subscribe to our Virtual Business Address service with mail forwarding: (a) Physical mail is received at 30 N Gould St, Sheridan, WY 82801; (b) Mail is scanned and uploaded to your dashboard within 1-2 business days of receipt; (c) You may request physical forwarding of mail pieces; (d) Standard forwarding occurs weekly via USPS Priority Mail; (e) Expedited forwarding (next-day) is available for an additional fee; (f) We are not responsible for delays or loss caused by USPS or other carriers."],
+      ["2. Physical Mail Forwarding", "If you subscribe to our Virtual Business Address service with mail forwarding: (a) Physical mail is received at 701 Amy Cir, Bryant, AR 72022; (b) Mail is scanned and uploaded to your dashboard within 1-2 business days of receipt; (c) You may request physical forwarding of mail pieces; (d) Standard forwarding occurs weekly via USPS Priority Mail; (e) Expedited forwarding (next-day) is available for an additional fee; (f) We are not responsible for delays or loss caused by USPS or other carriers."],
       ["3. Shipping Costs", "Mail forwarding shipping costs are included in your virtual address plan for standard (weekly) forwarding within the United States. Expedited shipping and international forwarding are available at additional cost as specified during sign-up or quoted upon request."],
       ["4. Processing Times", "Incorporation document processing depends on the filing state: (a) Expedited states (Delaware, Wyoming, Nevada) — 1-2 business days for state approval; (b) Standard states — 3-10 business days for state approval; (c) Paper filing states — 2-6 weeks for state approval. Processing times are estimates and not guaranteed. State government office closures, holidays, and workload may affect timelines."],
       ["5. International Shipping", "International mail forwarding is available to most countries. Delivery times vary by destination: (a) Canada — 5-10 business days; (b) Europe — 7-14 business days; (c) Asia-Pacific — 10-20 business days; (d) Rest of world — 14-30 business days. Customs duties, taxes, and import fees are the responsibility of the recipient. We are not responsible for items seized or delayed by customs."],
@@ -202,7 +202,7 @@ export const legalContent = {
       ["8. Returned Mail", "If physical mail is returned to us as undeliverable due to an incorrect or outdated address on file, a $10 re-forwarding fee applies. We will attempt to contact you to update your address before disposal."],
       ["9. Abandoned Mail", "Physical mail held at our facility for more than 60 days without forwarding instructions or account renewal may be considered abandoned and disposed of. We will make reasonable efforts to notify you before disposal."],
       ["10. Limitation of Liability", "Wolfitpark is not liable for: (a) Delays caused by government agencies, postal services, or courier companies; (b) Loss of mail by USPS or third-party carriers; (c) Damages resulting from delayed delivery; (d) Customs delays, seizures, or import restrictions for international forwarding."],
-      ["11. Contact", "For questions about shipping and delivery, contact: Wolfitpark LLC, 30 N Gould St, Sheridan, WY 82801, USA. Email: support@wolfitpark.online. Phone: +1 (307) 555-0199."],
+      ["11. Contact", "For questions about shipping and delivery, contact: Wolfitpark LLC, 701 Amy Cir, Bryant, AR 72022, USA. Email: support@wolfitpark.online. Phone: +1 (307) 555-0199."],
     ]
   },
   accessibility: {

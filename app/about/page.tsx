@@ -7,7 +7,7 @@ import { CtaSection, PageHero, SectionHeading } from "@/components/page-sections
 import { FadeIn, FadeInStagger } from "@/components/animation/fade-in"
 import { enterpriseStats, teamMembers } from "@/lib/site-data"
 
-export const metadata: Metadata = { title: "About", description: "Meet Wolfitpark, a product and transformation company building smarter business systems from Sheridan, Wyoming.", alternates: { canonical: "/about" } }
+export const metadata: Metadata = { title: "About", description: "Meet Wolfitpark, a product and transformation company building smarter business systems from Bryant, Arkansas.", alternates: { canonical: "/about" } }
 
 const pillars = [
   { icon: BrainCircuit, title: "Innovation-Led Engineering", description: "We combine emerging AI capabilities with disciplined software engineering to build systems that adapt as your business evolves.", color: "text-purple" },

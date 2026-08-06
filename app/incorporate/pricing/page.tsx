@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { PageTransition } from "@/components/animation/page-transition"
 import { FadeIn, FadeInStagger } from "@/components/animation/fade-in"
+import { AcceptedPaymentBadge } from "@/components/card-logos"
 
 export const metadata: Metadata = {
   title: "Incorporation Services",
@@ -128,6 +129,15 @@ export default function IncorporationPricingPage() {
               Begin Registration <ArrowRight data-icon="inline-end" />
             </Button>
           </div>
+        </div>
+      </section>
+
+      <section className="pb-16">
+        <div className="container-site">
+          <AcceptedPaymentBadge
+            label="Secure Transactions · 256-bit SSL · PCI DSS Compliant"
+            className="mx-auto max-w-xl rounded-2xl border border-border bg-card/60 py-5"
+          />
         </div>
       </section>
     </PageTransition>

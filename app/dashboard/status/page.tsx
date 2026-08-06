@@ -36,7 +36,7 @@ const companyInfo = [
   { label: "State of Formation", value: "Wyoming", icon: Globe },
   { label: "EIN", value: "82-1234567", icon: FileText },
   { label: "Registered Agent", value: "Wolfitpark Services Inc.", icon: ShieldCheck },
-  { label: "Business Address", value: "30 N Gould St, Sheridan, WY 82801", icon: MapPin },
+  { label: "Business Address", value: "701 Amy Cir, Bryant, AR 72022", icon: MapPin },
 ]
 
 export default function StatusPage() {

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { ArrowRight, ArrowLeft, CheckCircle2, Building2, CreditCard, Wallet, Banknote } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { CardLogos } from "@/components/card-logos"
 import { useAuth } from "@/components/auth-provider"
 
 const entityTypes = [
@@ -322,6 +323,13 @@ export default function IncorporateRegisterPage() {
                     </button>
                   ))}
                 </div>
+              </div>
+
+              <div className="flex flex-col items-start gap-3 rounded-xl border border-border bg-card/60 p-4">
+                <CardLogos size="sm" />
+                <p className="text-xs text-muted-foreground">
+                  Secure Transactions &middot; 256-bit SSL Encryption &middot; PCI DSS Compliant &middot; NACHA-compliant ACH
+                </p>
               </div>
 
               <p className="text-xs text-muted-foreground">
