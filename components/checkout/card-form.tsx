@@ -15,20 +15,8 @@ import {
 import { TextField, ControlledField, NativeSelect } from "@/components/checkout/fields"
 import { PaymentButton } from "@/components/checkout/payment-button"
 import { FieldGroup } from "@/components/ui/field"
+import { CardBrandLogo } from "@/components/card-logos"
 import { cn } from "@/lib/utils"
-
-const brandStyles: Record<string, { background: string; color: string; text: string; border?: string }> = {
-  visa: { background: "linear-gradient(135deg,#1a1f71,#5b78c7)", color: "#fff", text: "VISA" },
-  mastercard: { background: "linear-gradient(135deg,#eb001b,#f79e1b,#ff5f00)", color: "#fff", text: "Mastercard" },
-  amex: { background: "linear-gradient(135deg,#2e77bc,#006fd6)", color: "#fff", text: "AMEX" },
-  discover: { background: "linear-gradient(135deg,#20124d,#f76b1c)", color: "#fff", text: "DISCOVER" },
-  unknown: {
-    background: "rgba(255,255,255,0.08)",
-    color: "#fff",
-    text: "CARD",
-    border: "1px solid rgba(255,255,255,0.2)",
-  },
-}
 
 export function CardForm({
   amount,
@@ -66,7 +54,6 @@ export function CardForm({
 
   const cardNumber = watch("cardNumber")
   const brand = detectCardBrand(cardNumber.replace(/\s/g, ""))
-  const brandStyle = brandStyles[brand]
 
   return (
     <form onSubmit={handleSubmit((data) => onPay(data as CardOutput))} noValidate>
@@ -87,10 +74,9 @@ export function CardForm({
               key={brand}
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex w-fit items-center rounded-md border px-2 py-1 text-[10px] font-bold tracking-wide"
-              style={brandStyle}
+              className="inline-flex w-fit items-center"
             >
-              {brandStyle.text}
+              <CardBrandLogo brand={brand} />
             </motion.span>
           </div>
         </div>
